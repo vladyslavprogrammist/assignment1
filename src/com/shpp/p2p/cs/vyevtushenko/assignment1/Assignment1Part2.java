@@ -9,36 +9,46 @@ public class Assignment1Part2 extends KarelTheRobot{
     }
 
     private void startMove() throws Exception{
-        while(true) {
-            for(int i = 0; i < 8; i++) {
-                for(int j = 0; j < 7; j++) {
-                    if(i == 7 && j == 6) {
-                        return;
-                    }
-                    if (j == 3) {
-                        putBeeper();
-                    }
-                    if(frontIsBlocked()) {
-                        if(i % 2 == 0) {
-                            turnLeft();
-                            move();
-                            turnLeft();
-                        }
-                        else {
-                            turnRight();
-                            move();
-                            turnRight();
-                        }
-                    }
-                    else {
-                        move();
-                    }
 
-                }
+           move();
+           while(frontIsClear()) {
+               putBeeper();
+               move();
+           }
+           if(frontIsBlocked())
+           {
+               turnAround();
+               move();
+           }
 
-            }
 
-        }
+               while (frontIsClear() && beepersPresent()) {
+                   if(beepersPresent())
+                   {
+                       pickBeeper();
+                       move();
+                   }
+                   while(beepersPresent()) {
+                       move();
+                   }
+                   if(noBeepersPresent()) {
+                       turnAround();
+                       move();
+                   }
+
+               }
+               turnLeft();
+               putBeeper();
+               while(frontIsClear()) {
+                   move();
+                   putBeeper();
+               }
+           /* if(frontIsBlocked() && rightIsBlocked()) {
+                putBeeper();
+                return;
+            }*/
+
+
     }
 
     private void startPosition() throws Exception{

@@ -10,37 +10,29 @@ public class Assignment1Part3 extends KarelTheRobot{
 
     private void startMove() throws Exception{
         while(true) {
-            for(int i = 0; i < 8; i++) {
-                for(int j = 0; j < 7; j++) {
-                    if(i == 7 && j == 6) {
-                        putBeeper();
-                        return;
-                    }
-                    if(j % 2 != 0 && i % 2 == 0) {
-                        putBeeper();
-                    }
-                    if(j % 2 == 0 && i % 2 != 0) {
-                        putBeeper();
-                    }
-                    if(frontIsBlocked()) {
-                        if(i % 2 == 0) {
-                            turnLeft();
-                            move();
-                            turnLeft();
-                        }
-                        else {
-                            turnRight();
-                            move();
-                            turnRight();
-                        }
-                    }
-                    else {
-                        move();
-                    }
-
+                while(frontIsClear()) {
+                    move();
+                    putBeeper();
+                    move();
                 }
+                turnLeft();
+                move();
+                turnLeft();
 
-            }
+                while(frontIsClear()) {
+                    putBeeper();
+                    move();
+                    move();
+                }
+                putBeeper();
+                if(frontIsBlocked() && rightIsBlocked()) {
+                    return;
+                }
+                turnRight();
+                move();
+                turnRight();
+
+
 
         }
     }
